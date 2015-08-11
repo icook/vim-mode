@@ -417,6 +417,11 @@ class ScrollKeepingCursor extends MoveToLine
     cursor.setScreenPosition([@getDestinationRow(count), 0])
 
   getDestinationRow: (count) ->
+    if @currentFirstScreenRow == 0
+      return 0
+    lastScreenRow = @editor.getLastScreenRow()
+    if @editorElement.getLastVisibleScreenRow() is lastScreenRow
+      return lastScreenRow
     {row, column} = @editor.getCursorScreenPosition()
     @currentFirstScreenRow - @previousFirstScreenRow + row
 
